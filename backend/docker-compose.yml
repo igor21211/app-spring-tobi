@@ -1,0 +1,35 @@
+version: "3.1"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "0191"
+      POSTGRES_DB: "customer"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - /infrastructures/pgdata:/var/lib/postgresql/data \
+    networks:
+      - db
+  app-spring:
+    container_name: app-spring
+    image: tobimag/app-spring
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/customer
+    ports:
+      - 8088:8080
+    networks:
+      - db
+    depends_on:
+      - db
+    restart: unless-stopped
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:

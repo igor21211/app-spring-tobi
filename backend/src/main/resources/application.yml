@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+spring:
+  flyway:
+    baselineOnMigrate: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/customer
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: tobimag019115
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  main:
+    web-application-type: servlet
