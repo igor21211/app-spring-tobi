@@ -128,7 +128,7 @@
                 <configuration>
                     <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                     <includes>
-                        <include>**/*IntegrationTest.java</include>
+                        <include>**/*integrationTest.java</include>
                         <include>**/*IT.java</include>
                     </includes>
                     <systemPropertyVariables>
