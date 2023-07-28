@@ -2,14 +2,15 @@ version: "3.1"
 
 services:
   db:
-    image: postgres
+    container_name: postgres
+    image: postgres:15.3
     restart: always
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "0191"
-      POSTGRES_DB: "customer"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: tobimag01915
+      POSTGRES_DB: customer
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - /infrastructures/pgdata:/var/lib/postgresql/data \
@@ -21,7 +22,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/customer
     ports:
-      - 8088:8080
+      - "8088:8080"
     networks:
       - db
     depends_on:
