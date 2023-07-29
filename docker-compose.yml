@@ -1,21 +1,21 @@
-version: "3.1"
+version: "3.9"
 
 services:
   db:
     container_name: postgres
-    image: postgres:15.3
-    restart: always
-    ports:
-      - "5332:5432"
+    image: postgres:latest
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: tobimag01915
+      POSTGRES_PASSWORD: tobimag019115
       POSTGRES_DB: customer
-      PGDATA: /var/lib/postgresql/data/pgdata
+      PGDATA: /data/postgres
     volumes:
-      - /infrastructures/pgdata:/var/lib/postgresql/data \
+      - db:/data/postgres
+    ports:
+      - "5432:5432"
     networks:
       - db
+    restart: unless-stopped
   app-spring:
     container_name: app-spring
     image: tobimag/app-spring
