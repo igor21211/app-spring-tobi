@@ -9,7 +9,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/customer
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: tobimag019115
+    password: 0191
   jpa:
     hibernate:
       ddl-auto: validate
