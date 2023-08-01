@@ -6,10 +6,10 @@ spring:
   flyway:
     baselineOnMigrate: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/customer
+    url: jdbc:postgresql://localhost:5332/customer
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: 0191
+    password: tobimag019115
   jpa:
     hibernate:
       ddl-auto: validate
