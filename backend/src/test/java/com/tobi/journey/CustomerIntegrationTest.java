@@ -5,6 +5,7 @@ import com.github.javafaker.Name;
 import com.tobi.model.Customer;
 import com.tobi.model.CustomerRegistrationRequest;
 import com.tobi.model.CustomerUpdateRequest;
+import com.tobi.model.Gender;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,8 +35,9 @@ public class CustomerIntegrationTest {
         String name = fakerName.fullName();
         String email = fakerName.lastName() + "-" + UUID.randomUUID() + "@fooobaarrraa.com";
         int age = RANDOM.nextInt(1, 100);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                name, email, age
+                name, email, age, gender
         );
         webTestClient.post()
                 .uri(CUSTOMER_URI)
@@ -57,8 +59,8 @@ public class CustomerIntegrationTest {
                 .returnResult()
                 .getResponseBody();
         Customer expectedCustomer = new Customer(
-                name, email, age
-        );
+                name, email, age,
+                gender);
 
         assertThat(allCustomers)
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
@@ -89,8 +91,9 @@ public class CustomerIntegrationTest {
         String name = fakerName.fullName();
         String email = fakerName.lastName() + "-" + UUID.randomUUID() + "@fooobaarrraa.com";
         int age = RANDOM.nextInt(1, 100);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                name, email, age
+                name, email, age, gender
         );
         webTestClient.post()
                 .uri(CUSTOMER_URI)
@@ -141,8 +144,9 @@ public class CustomerIntegrationTest {
         String name = fakerName.fullName();
         String email = fakerName.lastName() + "-" + UUID.randomUUID() + "@fooobaarrraa.com";
         int age = RANDOM.nextInt(1, 100);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                name, email, age
+                name, email, age, gender
         );
         webTestClient.post()
                 .uri(CUSTOMER_URI)
@@ -196,8 +200,8 @@ public class CustomerIntegrationTest {
                 .getResponseBody();
 
         Customer customer = new Customer(
-                id, newName, email, age
-        );
+                id, newName, email, age,
+                gender);
         assertThat(updateCustomer).isEqualTo(customer);
     }
 }

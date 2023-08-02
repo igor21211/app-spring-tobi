@@ -2,20 +2,17 @@ package com.tobi.repostitory;
 
 import com.tobi.AbstractUnitTestContainerUnitTest;
 import com.tobi.model.Customer;
-import lombok.AllArgsConstructor;
+import com.tobi.model.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -35,8 +32,8 @@ class CustomersRepositoryTest extends AbstractUnitTestContainerUnitTest  {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.save(customer);
         List<Customer> customers = underTest.findAll();
 
@@ -51,8 +48,8 @@ class CustomersRepositoryTest extends AbstractUnitTestContainerUnitTest  {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         List<Customer> customers = underTest.findAll();
 
         var actual = underTest.existsCustomerByEmail(email);
@@ -66,8 +63,8 @@ class CustomersRepositoryTest extends AbstractUnitTestContainerUnitTest  {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.save(customer);
         List<Customer> customers = underTest.findAll();
 
@@ -97,8 +94,8 @@ class CustomersRepositoryTest extends AbstractUnitTestContainerUnitTest  {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.save(customer);
 
         var actual = underTest.findCustomerByEmail(email);

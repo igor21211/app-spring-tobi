@@ -1,17 +1,15 @@
 package com.tobi.CustomerJPAData;
 
 import com.github.javafaker.Faker;
-import com.tobi.AbstractUnitTestContainerUnitTest;
 import com.tobi.model.Customer;
+import com.tobi.model.Gender;
 import com.tobi.repostitory.CustomersRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -57,8 +55,8 @@ class CustomerJpaTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         verify(repository).save(customer);
     }
@@ -69,8 +67,8 @@ class CustomerJpaTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.existsCustomerWithEmail(email);
         verify(repository).existsCustomerByEmail(email);
     }
@@ -95,8 +93,8 @@ class CustomerJpaTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.updateCustomer(customer);
         verify(repository).save(customer);
     }

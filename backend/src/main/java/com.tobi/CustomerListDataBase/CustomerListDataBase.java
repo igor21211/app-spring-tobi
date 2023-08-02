@@ -1,8 +1,8 @@
 package com.tobi.CustomerListDataBase;
 
 import com.tobi.Dao.CustomerDao;
-import com.tobi.exceptions.NotFoundCustomerException;
 import com.tobi.model.Customer;
+import com.tobi.model.Gender;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -21,14 +21,14 @@ public class CustomerListDataBase implements CustomerDao {
                 1,
                 "Alex",
                 "alex@gmail.com",
-                21);
+                21, Gender.MALE);
         customers.add(alex);
 
         Customer jamila = new Customer(
                 2,
                 "Jamila",
                 "jamila@gmail.com",
-                19);
+                19, Gender.MALE);
         customers.add(jamila);
     }
     @Override
