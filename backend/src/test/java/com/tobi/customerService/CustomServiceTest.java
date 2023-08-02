@@ -8,6 +8,7 @@ import com.tobi.exceptions.RequestValidationException;
 import com.tobi.model.Customer;
 import com.tobi.model.CustomerRegistrationRequest;
 import com.tobi.model.CustomerUpdateRequest;
+import com.tobi.model.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,8 +47,8 @@ class CustomServiceTest {
     void canGetCustomer() {
         int id = 10;
         Customer customer = new Customer(
-          id, "Alex", "alex@gmail.com", 19
-        );
+          id, "Alex", "alex@gmail.com", 19,
+                Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
         Customer actual = underTest.getCustomer(id);
 
@@ -58,8 +59,8 @@ class CustomServiceTest {
     void willThrowWhenGetCustomer() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19
-        );
+                id, "Alex", "alex@gmail.com", 19,
+                Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.empty());
         assertThatThrownBy(()-> underTest.getCustomer(id))
                 .isInstanceOf(NotFoundCustomerException.class)
@@ -72,7 +73,7 @@ class CustomServiceTest {
         when(customerDao.existsCustomerWithEmail(email)).thenReturn(false);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19
+                "Alex", email, 19 ,Gender.MALE
         );
 
         underTest.addCustomer(request);
@@ -92,7 +93,7 @@ class CustomServiceTest {
         when(customerDao.existsCustomerWithEmail(email)).thenReturn(true);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19
+                "Alex", email, 19, Gender.MALE
         );
 
         assertThatThrownBy(()-> underTest.addCustomer(request))
@@ -124,8 +125,8 @@ class CustomServiceTest {
     void canUpdateAllCustomerFields() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19
-        );
+                id, "Alex", "alex@gmail.com", 19,
+                Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         CustomerUpdateRequest request = new CustomerUpdateRequest(
@@ -147,8 +148,8 @@ class CustomServiceTest {
     void canUpdateAllCustomerOnlyNameField() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19
-        );
+                id, "Alex", "alex@gmail.com", 19,
+                Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         CustomerUpdateRequest request = new CustomerUpdateRequest(
@@ -169,8 +170,8 @@ class CustomServiceTest {
     void canUpdateAllCustomerOnlyEmailField() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19
-        );
+                id, "Alex", "alex@gmail.com", 19,
+                Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         String newEmail = "alexandresf@gmail.com";
@@ -192,8 +193,8 @@ class CustomServiceTest {
     void canUpdateAllCustomerOnlyAgeField() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19
-        );
+                id, "Alex", "alex@gmail.com", 19,
+                Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
 
@@ -214,8 +215,8 @@ class CustomServiceTest {
     void willThrowExceptionWhenTryUpdateCustomerEmailWhenAlreadyTaken() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19
-        );
+                id, "Alex", "alex@gmail.com", 19,
+                Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         CustomerUpdateRequest request = new CustomerUpdateRequest(
@@ -235,8 +236,8 @@ class CustomServiceTest {
     void willThrowExceptionWhenCustomerUpdateNoChanges() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19
-        );
+                id, "Alex", "alex@gmail.com", 19,
+                Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         CustomerUpdateRequest request = new CustomerUpdateRequest(
@@ -252,8 +253,8 @@ class CustomServiceTest {
     void willThrowExceptionWhenDontFindCustomerId() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19
-        );
+                id, "Alex", "alex@gmail.com", 19,
+                Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.empty());
 
         CustomerUpdateRequest request = new CustomerUpdateRequest(
