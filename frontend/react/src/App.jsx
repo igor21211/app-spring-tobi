@@ -4,6 +4,8 @@ import React, {useEffect, useState} from "react";
 import {getCustomers} from "./services/client.js";
 import SocialProfileWithImage from "./components/Card.jsx";
 import CardWithImage from "./components/Card.jsx";
+import DrawerForm from "./components/DrawerFrom.jsx"
+
 
 const App = () =>{
 
@@ -45,13 +47,14 @@ const App = () =>{
     }
     return(
         <SidebarWithHeader>
+            <DrawerForm></DrawerForm>
             <Wrap justify={"space-around"} spacing={"30px"}>
             {customers.map((customer, index) =>(
                 <WrapItem key={index}>
                  <CardWithImage{...customer}/>
                 </WrapItem>
             ))}
-        </Wrap>
+            </Wrap>
         </SidebarWithHeader>
     )
 }
