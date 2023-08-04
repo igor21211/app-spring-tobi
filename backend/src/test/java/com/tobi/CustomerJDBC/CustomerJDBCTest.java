@@ -3,16 +3,15 @@ package com.tobi.CustomerJDBC;
 import com.tobi.AbstractUnitTestContainerUnitTest;
 import com.tobi.CustomerRowMapper.CustomerRowMapper;
 import com.tobi.model.Customer;
+import com.tobi.model.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
 
@@ -32,8 +31,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 FAKER.internet().safeEmailAddress() + "-"+ UUID.randomUUID(),
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         List<Customer> customers = underTest.selectAllCustomers();
 
@@ -46,8 +45,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         List<Customer> customers = underTest.selectAllCustomers();
 
@@ -83,8 +82,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         List<Customer> customers = underTest.selectAllCustomers();
 
@@ -111,8 +110,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
 
         boolean actual = underTest.existsCustomerWithEmail(email);
@@ -133,8 +132,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
                 .stream()
@@ -161,8 +160,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
                 .stream()
@@ -182,8 +181,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
                 .stream()
@@ -213,8 +212,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
                 .stream()
@@ -244,8 +243,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
                 .stream()
@@ -275,8 +274,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
                 .stream()
@@ -293,6 +292,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         update.setName(newName);
         update.setEmail(emailNew);
         update.setAge(newAge);
+
         underTest.updateCustomer(update);
 
         var actual = underTest.selectCustomerById(id);
@@ -301,6 +301,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
             assertThat(c.getName()).isEqualTo(newName);
             assertThat(c.getAge()).isEqualTo(newAge);
             assertThat(c.getEmail()).isEqualTo(emailNew);
+            assertThat(c.getGender()).isEqualTo(Gender.MALE);
         });
     }
 
@@ -311,8 +312,8 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
 
         var actual = underTest.selectUserByEmail(email);

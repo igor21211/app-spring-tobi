@@ -7,6 +7,7 @@ import com.tobi.exceptions.RequestValidationException;
 import com.tobi.model.Customer;
 import com.tobi.model.CustomerRegistrationRequest;
 import com.tobi.model.CustomerUpdateRequest;
+import com.tobi.model.Gender;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class CustomService {
 
     private final CustomerDao customerDao;
 
-    public CustomService(@Qualifier("jdbc") CustomerDao customerDao) {
+    public CustomService(@Qualifier("jpa") CustomerDao customerDao) {
         this.customerDao = customerDao;
     }
 
@@ -44,7 +45,8 @@ public class CustomService {
         Customer customer = new Customer(
                 customerRegistrationRequest.name(),
                 customerRegistrationRequest.email(),
-                customerRegistrationRequest.age());
+                customerRegistrationRequest.age(),
+                customerRegistrationRequest.gender());
 
         customerDao.insertCustomer(customer);
     }
