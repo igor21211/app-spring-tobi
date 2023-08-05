@@ -12,16 +12,19 @@ import {
     Button,
     useColorModeValue, Tag,
 } from '@chakra-ui/react'
+import DeleteCustomer from "./DeleteCustomer.jsx";
+import UpdateDrawerForm from "./UpdateCustomerDrawerFrom.jsx";
 
-export default function CardWithImage({id, name, email, age, gender}) {
+export default function CardWithImage({id, name, email, age, gender, fetchCustomers}) {
     const randomGender = gender === "MALE" ? "men" : "women";
     return (
         <Center py={8}>
             <Box
-                maxW={'370px'}
+                maxW={'300px'}
+                minW={"300px"}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.800')}
-                boxShadow={'2xl'}
+                boxShadow={'lg'}
                 rounded={'md'}
                 overflow={'hidden'}>
                 <Image
@@ -37,7 +40,7 @@ export default function CardWithImage({id, name, email, age, gender}) {
                     <Avatar
                         size={'xl'}
                         src={
-                            `https://randomuser.me/api/portraits/${randomGender}/75.jpg`
+                            `https://randomuser.me/api/portraits/med/${randomGender}/75.jpg`
                         }
                         css={{
                             border: '2px solid white',
@@ -52,7 +55,13 @@ export default function CardWithImage({id, name, email, age, gender}) {
                             {name}
                         </Heading>
                         <Text color={'gray.500'}>{email}</Text>
-                        <Text color={'gray.500'}>Age {age} | {gender}</Text>
+                        <Text mb={5} color={'gray.500'}>Age {age} | {gender}</Text>
+                        <DeleteCustomer  id={id} name={name} fetchCustomers={fetchCustomers}></DeleteCustomer>
+                        <UpdateDrawerForm
+                            initialValues={{name, email, age}}
+                            fetchCustomers={fetchCustomers}
+                            customerId={id}
+                        />
                     </Stack>
                 </Box>
             </Box>

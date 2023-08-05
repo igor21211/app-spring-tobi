@@ -91,7 +91,7 @@ const NavItem = ({ icon, children, ...rest }) => {
                 role="group"
                 cursor="pointer"
                 _hover={{
-                    bg: 'cyan.400',
+                    bg: 'red.400',
                     color: 'white',
                 }}
                 {...rest}>
@@ -136,7 +136,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 fontSize="2xl"
                 fontFamily="monospace"
                 fontWeight="bold">
-                Logo
+                <Image
+                    borderRadius='full'
+                    boxSize='75px'
+                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOdvescVN6j2qIVm9Ym4y0boOwNLj-wlfV5j2hQXU&s'
+                    alt='App-React'
+                />
             </Text>
 
             <HStack spacing={{ base: '0', md: '6' }}>

@@ -68,10 +68,10 @@ jobs:
       - name: Update Dockerrun.aws.json api image tag with new build number
         run: |
           echo "Dockerrun.aws.json before updating tag"
-          cat Dockerrun.aws.json
-          sed -i -E 's_(tobimag/app-spring:)([^"]*)_\1'${{steps.build-number.outputs.BUILD_NUMBER}}'_' Dockerrun.aws.json 
+          cat ../Dockerrun.aws.json
+          sed -i -E 's_(tobimag/app-spring:)([^"]*)_\1'${{steps.build-number.outputs.BUILD_NUMBER}}'_' ../Dockerrun.aws.json 
           echo "Dockerrun.aws.json after updating tag"
-          cat Dockerrun.aws.json
+          cat ../Dockerrun.aws.json
       - name: Send Slack Message
         run: >
           curl -X POST -H 'Content-type: application/json' 
@@ -87,23 +87,23 @@ jobs:
           version_label: ${{steps.build-number.outputs.BUILD_NUMBER}}
           version_description: ${{github.SHA}}
           region: ${{ secrets.EB_REGION }}
-          deployment_package: backend/Dockerrun.aws.json
+          deployment_package: Dockerrun.aws.json
       - name: Send Slack Message
         run: >
           curl -X POST -H 'Content-type: application/json' 
-          --data '{"text":":githubloading: Committing to repo https://github.com/amigoscode/spring-boot-full-stack/"}' 
+          --data '{"text":":githubloading: Committing to repo https://github.com/igor21211/app-spring-tobi"}' 
           ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Commit and Push Dockerrun.aws.json
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .
+          git add ../Dockerrun.aws.json
           git commit -m "Update Dockerrun.aws.json docker image with new tag ${{steps.build-number.outputs.BUILD_NUMBER}}"
           git push
       - name: Send Slack Message
         run: >
           curl -X POST -H 'Content-type: application/json' 
-          --data '{"text":"Deployment and commit completed :github-check-mark: :party_blob: - http://amigoscodeapi-env.eba-ymxutmev.eu-west-1.elasticbeanstalk.com/"}' 
+          --data '{"text":"Deployment and commit completed :github-check-mark: :party_blob: - http://app-spring-env.eba-ymxutmev.eu-west-1.elasticbeanstalk.com/"}' 
           ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Send Slack Message
         if: always()

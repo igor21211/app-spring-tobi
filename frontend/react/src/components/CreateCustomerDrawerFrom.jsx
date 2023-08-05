@@ -10,8 +10,9 @@ import {
 import CreateCustomerForm from "./CreateCustomerForm.jsx";
 
 const Addicon = () => "+";
+const Closeicon = () => "x";
 
-const DrawerForm = () => {
+const DrawerForm = ({fetchCustomers}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return <>
     <Button
@@ -25,16 +26,22 @@ const DrawerForm = () => {
      <DrawerOverlay />
      <DrawerContent>
        <DrawerCloseButton />
-       <DrawerHeader>Create your account</DrawerHeader>
+       <DrawerHeader>Create new customer</DrawerHeader>
 
        <DrawerBody>
-         <CreateCustomerForm></CreateCustomerForm>
+         <CreateCustomerForm
+             fetchCustomers={fetchCustomers}
+         ></CreateCustomerForm>
        </DrawerBody>
 
        <DrawerFooter>
-         <Button type='submit' form='my-form'>
-           Save
-         </Button>
+           <Button
+               leftIcon={<Closeicon/>}
+               colorScheme={"teal"}
+               onClick={onClose}
+           >
+               Close
+           </Button>
        </DrawerFooter>
      </DrawerContent>
    </Drawer>
