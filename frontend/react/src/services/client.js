@@ -2,7 +2,8 @@ import axios from "axios";
 
 const getAuthConfig = () =>({
     headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        AccessControlAllowOrigin: `contact-app-env.eba-5m7uhaay.eu-central-1.elasticbeanstalk.com`
     }
 })
 
@@ -10,7 +11,8 @@ export const getCustomers = async () => {
     try{
         return  await axios.get(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers`,
-        getAuthConfig()
+        getAuthConfig(),
+
         )
     }catch (e){
         throw e;
@@ -53,10 +55,10 @@ export const updateCustomer = async (id, customer) =>{
 
 export const login = async (usernameAndPassword) =>{
     try{
-        return await axios.post(
+        return (await axios.post(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/login`,
             usernameAndPassword
-        )
+        ))
     }catch (e){
         throw e;
     }
