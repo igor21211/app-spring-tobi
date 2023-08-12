@@ -24,3 +24,5 @@ spring:
 cors:
   allow-origins: "*"
   allow-methods: "*"
+  allow-headers: "*"
+  exposed-headers: "*"
