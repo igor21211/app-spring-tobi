@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "app-spring-react",
-      "image": "tobimag/app-spring-react:11.08.2023.20.55.58",
+      "image": "tobimag/app-spring-react:11.08.2023.22.39.12",
       "essential": true,
       "memory": 256,
       "portMappings": [
