@@ -15,7 +15,7 @@
     },
     {
       "name": "app-spring",
-      "image": "tobimag/app-spring:05.08.2023.18.10.12",
+      "image": "tobimag/app-spring:12.08.2023.09.32.01",
       "essential": true,
       "memory": 512,
       "portMappings": [
