@@ -41,7 +41,7 @@ const MySelect = ({ label, ...props }) => {
 };
 
 // And now we can use these
-const CreateCustomerForm = ({fetchCustomers}) => {
+const CreateCustomerForm = ({onSuccess}) => {
     return (
         <>
             <Formik
@@ -79,7 +79,8 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                     saveCustomer(customer)
                         .then(res=>{
                             console.log(res)
-                            fetchCustomers();
+                            onSuccess(res.headers["authorization"]);
+                            na
                         successNotification(
                             "Customer saved",
                             `${customer.name} was successfully saved`
