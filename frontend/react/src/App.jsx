@@ -2,9 +2,9 @@ import {Spinner, Text, Wrap, WrapItem} from '@chakra-ui/react'
 import SidebarWithHeader from "./components/shared/SideBar.jsx";
 import React, {useEffect, useState} from "react";
 import {getCustomers} from "./services/client.js";
-import SocialProfileWithImage from "./components/Card.jsx";
-import CardWithImage from "./components/Card.jsx";
-import DrawerForm from "./components/CreateCustomerDrawerFrom.jsx"
+import SocialProfileWithImage from "./components/shared/Card.jsx";
+import CardWithImage from "./components/shared/Card.jsx";
+import DrawerForm from "./components/customer/CreateCustomerDrawerFrom.jsx"
 import {errorNotification} from "./services/Notification.js";
 
 

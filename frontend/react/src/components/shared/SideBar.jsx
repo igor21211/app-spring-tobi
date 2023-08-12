@@ -31,6 +31,7 @@ import {
     FiBell,
     FiChevronDown,
 } from 'react-icons/fi'
+import {useAuth} from "../context/AuthContext.jsx";
 
 
 
@@ -62,7 +63,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 <Image
                     borderRadius='full'
                     boxSize='75px'
-                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOdvescVN6j2qIVm9Ym4y0boOwNLj-wlfV5j2hQXU&s'
+                    src='https://images.crunchbase.com/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/ap7mhfgvjzfy1v6jyn7n'
                     alt='App-React'
                 />
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
@@ -112,6 +113,7 @@ const NavItem = ({ icon, children, ...rest }) => {
 }
 
 const MobileNav = ({ onOpen, ...rest }) => {
+    const { logOut, customer } = useAuth();
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -139,7 +141,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <Image
                     borderRadius='full'
                     boxSize='75px'
-                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOdvescVN6j2qIVm9Ym4y0boOwNLj-wlfV5j2hQXU&s'
+                    src='https://images.crunchbase.com/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/ap7mhfgvjzfy1v6jyn7n'
                     alt='App-React'
                 />
             </Text>
@@ -161,10 +163,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
                                     alignItems="flex-start"
                                     spacing="1px"
                                     ml="2">
-                                    <Text fontSize="sm">Justina Clark</Text>
-                                    <Text fontSize="xs" color="gray.600">
-                                        Admin
-                                    </Text>
+                                    <Text fontSize="sm">{customer?.username}</Text>
+                                    {customer?.roles.map((role, id)=>(
+                                        <Text key={id} fontSize="xs" color="gray.600">
+                                            {role}
+                                        </Text>
+                                    ))}
+
                                 </VStack>
                                 <Box display={{ base: 'none', md: 'flex' }}>
                                     <FiChevronDown />
@@ -178,7 +183,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
                             <MenuItem>Settings</MenuItem>
                             <MenuItem>Billing</MenuItem>
                             <MenuDivider />
-                            <MenuItem>Sign out</MenuItem>
+                            <MenuItem onClick={logOut}>
+                                Sign out</MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>

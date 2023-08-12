@@ -12,8 +12,8 @@ import {
     Button,
     useColorModeValue, Tag,
 } from '@chakra-ui/react'
-import DeleteCustomer from "./DeleteCustomer.jsx";
-import UpdateDrawerForm from "./UpdateCustomerDrawerFrom.jsx";
+import DeleteCustomer from "../customer/DeleteCustomer.jsx";
+import UpdateDrawerForm from "../customer/UpdateCustomerDrawerFrom.jsx";
 
 export default function CardWithImage({id, name, email, age, gender, fetchCustomers}) {
     const randomGender = gender === "MALE" ? "men" : "women";
