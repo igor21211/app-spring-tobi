@@ -3,10 +3,14 @@ package com.tobi.Controller;
 
 
 import com.tobi.customerService.CustomService;
+import com.tobi.dto.CustomerDTO;
+import com.tobi.jwt.JWTUtil;
 import com.tobi.model.Customer;
 import com.tobi.model.CustomerRegistrationRequest;
 import com.tobi.model.CustomerUpdateRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,18 +21,23 @@ import java.util.List;
 public class Controller {
 
     private final CustomService service;
+    private final JWTUtil jwt;
 
     @PostMapping()
-    public void addCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest){
-         service.addCustomer(customerRegistrationRequest);
+    public ResponseEntity<?> registerCustomer(@RequestBody CustomerRegistrationRequest request){
+         service.addCustomer(request);
+        String jwtToken = jwt.issueToken(request.email(), "ROLE_USER");
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, jwtToken)
+                .build();
     }
     @GetMapping
-    public List<Customer> getCustomers() {
+    public List<CustomerDTO> getCustomers() {
         return service.getAllCustomers();
     }
 
     @GetMapping("{customerId}")
-    public Customer getCustomer(
+    public CustomerDTO getCustomer(
             @PathVariable("customerId") Integer customerId) {
         return service.getCustomer(customerId);
     }

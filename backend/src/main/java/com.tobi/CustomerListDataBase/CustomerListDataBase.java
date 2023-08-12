@@ -21,14 +21,14 @@ public class CustomerListDataBase implements CustomerDao {
                 1,
                 "Alex",
                 "alex@gmail.com",
-                21, Gender.MALE);
+                "password", 21, Gender.MALE);
         customers.add(alex);
 
         Customer jamila = new Customer(
                 2,
                 "Jamila",
                 "jamila@gmail.com",
-                19, Gender.MALE);
+                "password", 19, Gender.MALE);
         customers.add(jamila);
     }
     @Override

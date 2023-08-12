@@ -55,7 +55,7 @@ class CustomerJpaTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         verify(repository).save(customer);
@@ -67,7 +67,7 @@ class CustomerJpaTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.existsCustomerWithEmail(email);
         verify(repository).existsCustomerByEmail(email);
@@ -93,7 +93,7 @@ class CustomerJpaTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.updateCustomer(customer);
         verify(repository).save(customer);

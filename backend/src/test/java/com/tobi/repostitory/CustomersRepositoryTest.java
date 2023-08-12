@@ -32,7 +32,7 @@ class CustomersRepositoryTest extends AbstractUnitTestContainerUnitTest  {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.save(customer);
         List<Customer> customers = underTest.findAll();
@@ -48,7 +48,7 @@ class CustomersRepositoryTest extends AbstractUnitTestContainerUnitTest  {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         List<Customer> customers = underTest.findAll();
 
@@ -63,7 +63,7 @@ class CustomersRepositoryTest extends AbstractUnitTestContainerUnitTest  {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.save(customer);
         List<Customer> customers = underTest.findAll();
@@ -94,7 +94,7 @@ class CustomersRepositoryTest extends AbstractUnitTestContainerUnitTest  {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.save(customer);
 

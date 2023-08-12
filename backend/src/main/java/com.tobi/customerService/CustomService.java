@@ -1,33 +1,44 @@
 package com.tobi.customerService;
 
 import com.tobi.Dao.CustomerDao;
+import com.tobi.dto.CustomerDTO;
+import com.tobi.dto.CustomerDTOMapper;
 import com.tobi.exceptions.DuplicateResourceException;
 import com.tobi.exceptions.NotFoundCustomerException;
 import com.tobi.exceptions.RequestValidationException;
 import com.tobi.model.Customer;
 import com.tobi.model.CustomerRegistrationRequest;
 import com.tobi.model.CustomerUpdateRequest;
-import com.tobi.model.Gender;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomService {
 
     private final CustomerDao customerDao;
+    private final PasswordEncoder passwordEncoder;
+    private  final CustomerDTOMapper customerDTOMapper;
 
-    public CustomService(@Qualifier("jpa") CustomerDao customerDao) {
+    public CustomService(@Qualifier("jpa") CustomerDao customerDao, PasswordEncoder passwordEncoder, CustomerDTOMapper customerDTOMapper) {
         this.customerDao = customerDao;
+        this.passwordEncoder = passwordEncoder;
+        this.customerDTOMapper = customerDTOMapper;
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerDao.selectAllCustomers();
+    public List<CustomerDTO> getAllCustomers() {
+        return customerDao.selectAllCustomers()
+                .stream()
+                .map(customerDTOMapper)
+                .collect(Collectors.toList());
     }
 
-    public Customer getCustomer(Integer id) {
+    public CustomerDTO getCustomer(Integer id) {
         return customerDao.selectCustomerById(id)
+                .map(customerDTOMapper)
                 .orElseThrow(() -> new NotFoundCustomerException(
                         "customer with id [%s] not found".formatted(id)
                 ));
@@ -45,6 +56,7 @@ public class CustomService {
         Customer customer = new Customer(
                 customerRegistrationRequest.name(),
                 customerRegistrationRequest.email(),
+                passwordEncoder.encode(customerRegistrationRequest.password()),
                 customerRegistrationRequest.age(),
                 customerRegistrationRequest.gender());
 

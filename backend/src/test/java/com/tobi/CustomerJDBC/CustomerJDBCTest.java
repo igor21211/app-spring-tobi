@@ -31,7 +31,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 FAKER.internet().safeEmailAddress() + "-"+ UUID.randomUUID(),
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         List<Customer> customers = underTest.selectAllCustomers();
@@ -45,7 +45,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         List<Customer> customers = underTest.selectAllCustomers();
@@ -82,7 +82,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         List<Customer> customers = underTest.selectAllCustomers();
@@ -110,7 +110,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
 
@@ -132,7 +132,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
@@ -160,7 +160,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
@@ -181,7 +181,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
@@ -212,7 +212,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
@@ -243,7 +243,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
@@ -274,7 +274,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         int id = underTest.selectAllCustomers()
@@ -312,7 +312,7 @@ class CustomerJDBCTest extends AbstractUnitTestContainerUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "password", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
 

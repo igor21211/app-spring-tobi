@@ -2,6 +2,8 @@ package com.tobi.customerService;
 
 import com.tobi.Dao.CustomerDao;
 
+import com.tobi.dto.CustomerDTO;
+import com.tobi.dto.CustomerDTOMapper;
 import com.tobi.exceptions.DuplicateResourceException;
 import com.tobi.exceptions.NotFoundCustomerException;
 import com.tobi.exceptions.RequestValidationException;
@@ -16,6 +18,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -30,10 +33,14 @@ class CustomServiceTest {
     private CustomService underTest;
     @Mock
     private  CustomerDao customerDao;
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    private  CustomerDTOMapper customerDTOMapper = new CustomerDTOMapper();
 
     @BeforeEach
     void setUp() {
-        underTest = new CustomService(customerDao);
+        underTest = new CustomService(customerDao, passwordEncoder, customerDTOMapper);
     }
 
 
@@ -47,19 +54,22 @@ class CustomServiceTest {
     void canGetCustomer() {
         int id = 10;
         Customer customer = new Customer(
-          id, "Alex", "alex@gmail.com", 19,
+          id, "Alex", "alex@gmail.com", "password", 19,
                 Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
-        Customer actual = underTest.getCustomer(id);
 
-        assertThat(actual).isEqualTo(customer);
+        CustomerDTO expect = customerDTOMapper.apply(customer);
+
+        CustomerDTO actual = underTest.getCustomer(id);
+
+        assertThat(actual).isEqualTo(expect);
     }
 
     @Test
     void willThrowWhenGetCustomer() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19,
+                id, "Alex", "alex@gmail.com", "password", 19,
                 Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.empty());
         assertThatThrownBy(()-> underTest.getCustomer(id))
@@ -73,8 +83,11 @@ class CustomServiceTest {
         when(customerDao.existsCustomerWithEmail(email)).thenReturn(false);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19 ,Gender.MALE
+                "Alex", email, email, 19 ,Gender.MALE
         );
+
+        String passwordHash = "$5ds23sddff";
+        when(passwordEncoder.encode(request.password())).thenReturn(passwordHash);
 
         underTest.addCustomer(request);
 
@@ -85,6 +98,7 @@ class CustomServiceTest {
         assertThat(captureCustomer.getName()).isEqualTo(request.name());
         assertThat(captureCustomer.getEmail()).isEqualTo(request.email());
         assertThat(captureCustomer.getAge()).isEqualTo(request.age());
+        assertThat(captureCustomer.getPassword()).isEqualTo(passwordHash);
     }
 
     @Test
@@ -93,7 +107,7 @@ class CustomServiceTest {
         when(customerDao.existsCustomerWithEmail(email)).thenReturn(true);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19, Gender.MALE
+                "Alex", email, email, 19, Gender.MALE
         );
 
         assertThatThrownBy(()-> underTest.addCustomer(request))
@@ -125,7 +139,7 @@ class CustomServiceTest {
     void canUpdateAllCustomerFields() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19,
+                id, "Alex", "alex@gmail.com", "password", 19,
                 Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
@@ -148,7 +162,7 @@ class CustomServiceTest {
     void canUpdateAllCustomerOnlyNameField() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19,
+                id, "Alex", "alex@gmail.com", "password", 19,
                 Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
@@ -170,7 +184,7 @@ class CustomServiceTest {
     void canUpdateAllCustomerOnlyEmailField() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19,
+                id, "Alex", "alex@gmail.com", "password", 19,
                 Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
@@ -193,7 +207,7 @@ class CustomServiceTest {
     void canUpdateAllCustomerOnlyAgeField() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19,
+                id, "Alex", "alex@gmail.com", "password", 19,
                 Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
@@ -215,7 +229,7 @@ class CustomServiceTest {
     void willThrowExceptionWhenTryUpdateCustomerEmailWhenAlreadyTaken() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19,
+                id, "Alex", "alex@gmail.com", "password", 19,
                 Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
@@ -236,7 +250,7 @@ class CustomServiceTest {
     void willThrowExceptionWhenCustomerUpdateNoChanges() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19,
+                id, "Alex", "alex@gmail.com", "password", 19,
                 Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
@@ -253,7 +267,7 @@ class CustomServiceTest {
     void willThrowExceptionWhenDontFindCustomerId() {
         int id = 10;
         Customer customer = new Customer(
-                id, "Alex", "alex@gmail.com", 19,
+                id, "Alex", "alex@gmail.com", "password", 19,
                 Gender.MALE);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.empty());
 
