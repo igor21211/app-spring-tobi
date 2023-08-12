@@ -1,8 +1,7 @@
-FROM  --platform=linux/arm64 node:19.5.0-alpine
+FROM node:19-alpine
 ARG api_base_url
 WORKDIR /app
 COPY package*.json .
-RUN npm install
 RUN npm i --silent
 COPY . .
 RUN echo "VITE_API_BASE_URL=${api_base_url}" > .env
