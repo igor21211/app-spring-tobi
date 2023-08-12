@@ -2,8 +2,7 @@ import axios from "axios";
 
 const getAuthConfig = () =>({
     headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        AccessControlAllowOrigin: `contact-app-env.eba-5m7uhaay.eu-central-1.elasticbeanstalk.com`
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
     }
 })
 
