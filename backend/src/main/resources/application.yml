@@ -6,7 +6,7 @@ spring:
   flyway:
     baselineOnMigrate: true
   datasource:
-    url: jdbc:postgresql://awseb-e-mmvhq6qvu4-stack-awsebrdsdatabase-nfqwx6n3ccnb.c2i6clhmul4y.eu-central-1.rds.amazonaws.com:5432/ebdb
+    url: jdbc:postgresql://localhost:5332/customer
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: tobimag019115
