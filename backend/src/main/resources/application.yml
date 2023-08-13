@@ -21,11 +21,15 @@ spring:
   main:
     web-application-type: servlet
 
-management:
+
   endpoints:
     web:
       exposure:
         include: "health,info"
+    health:
+      probes:
+        enable: true
+
 
 
 cors:
