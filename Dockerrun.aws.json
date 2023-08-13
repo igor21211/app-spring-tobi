@@ -2,32 +2,20 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "app-spring-react",
-      "image": "tobimag/app-spring-react:12.08.2023.21.24.21",
-      "essential": true,
-      "memory": 256,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 5173
-        }
-      ]
-    },
-    {
       "name": "app-spring",
       "image": "tobimag/app-spring:12.08.2023.12.05.45",
       "essential": true,
       "memory": 512,
       "portMappings": [
         {
-          "hostPort": 8080,
+          "hostPort": 80,
           "containerPort": 8080
         }
       ],
       "environment": [
         {
           "name": "SPRING_DATASOURCE_URL",
-          "value": "jdbc:postgresql://awseb-e-dehbpadvxw-stack-awsebrdsdatabase-0lmwm3kyubsm.c2i6clhmul4y.eu-central-1.rds.amazonaws.com:5432/customer"
+          "value": "jdbc:postgresql://awseb-e-mmvhq6qvu4-stack-awsebrdsdatabase-nfqwx6n3ccnb.c2i6clhmul4y.eu-central-1.rds.amazonaws.com:5432/ebdb"
         }
       ]
     }
