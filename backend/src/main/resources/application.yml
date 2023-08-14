@@ -22,18 +22,17 @@ spring:
     web-application-type: servlet
 
 
+management:
   endpoints:
     web:
       exposure:
         include: "health,info"
-    health:
-      probes:
-        enable: true
-
+  endpoint:
+    web:
 
 
 cors:
-  allow-origins: "*"
-  allow-methods: "*"
-  allow-headers: "*"
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
   exposed-headers: "*"

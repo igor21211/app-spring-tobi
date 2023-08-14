@@ -12,13 +12,14 @@ import java.util.List;
 
 @Configuration
 public class CorsConfig {
-    @Value("#{'${cors.allow-origins}'.split(',')}")
-    private List<String> allowOrigins;
 
-    @Value("#{'${cors.allow-methods}'.split(',')}")
+    @Value("#{'${cors.allowed-origins}'.split(',')}")
+    private List<String> allowedOrigins;
+
+    @Value("#{'${cors.allowed-methods}'.split(',')}")
     private List<String> allowedMethods;
 
-    @Value("#{'${cors.allow-headers}'.split(',')}")
+    @Value("#{'${cors.allowed-headers}'.split(',')}")
     private List<String> allowedHeaders;
 
     @Value("#{'${cors.exposed-headers}'.split(',')}")
@@ -27,7 +28,7 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(allowOrigins);
+        configuration.setAllowedOrigins(allowedOrigins);
         configuration.setAllowedMethods(allowedMethods);
         configuration.setAllowedHeaders(allowedHeaders);
         configuration.setExposedHeaders(expectedHeaders);
