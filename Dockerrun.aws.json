@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "app-spring",
-      "image": "tobimag/app-spring:13.08.2023.12.53.13",
+      "image": "tobimag/app-spring:14.08.2023.18.57.54",
       "essential": true,
       "memory": 512,
       "portMappings": [
